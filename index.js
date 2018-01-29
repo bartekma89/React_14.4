@@ -6,23 +6,27 @@ var MovieTitle = React.createClass({
 
 var MovieDescription = React.createClass({
     render: function() {
-        return React.createElement('p', {}, this.props.description);
+        return React.createElement('p', {className: 'media-heading'}, this.props.description);
     }
 })
 
 var MovieImg = React.createClass({
     render: function() {
-        return React.createElement('img', { src: this.props.image, height: 200, width: 300 });
+        return React.createElement('img', {className:'media-object', src: this.props.image, height: 200, width: 300 });
     }
 })
 
 var Movie = React.createClass({
     render: function() {
-        return React.createElement('li', {className: 'media border'},
-            React.createElement(MovieTitle, { title: this.props.movie.Title }),
-            React.createElement(MovieDescription, { description: this.props.movie.Description }),
-            React.createElement(MovieImg, { image: this.props.movie.Images[1] })
+        var mediaElement = React.createElement('div', {className: 'media border'},
+            React.createElement('div', {className: 'media-left'}, 
+                React.createElement(MovieImg, { image: this.props.movie.Images[1] })),
+            React.createElement('div', {className: 'media-body'}, 
+                React.createElement(MovieTitle, { title: this.props.movie.Title }),
+                React.createElement(MovieDescription, { description: this.props.movie.Description }))
         );
+
+        return React.createElement('li', {}, mediaElement);
     }
 })
 
@@ -33,7 +37,7 @@ var MovieList = React.createClass({
         })
         return React.createElement('div', {}, 
                 React.createElement('h1', {}, 'Lista filmów'), 
-                React.createElement('ul', {}, movieElements));
+                React.createElement('ul', {style: {listStyleType: 'none'}}, movieElements));
     }
 })
 
